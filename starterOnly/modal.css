@@ -26,16 +26,13 @@ p {
   padding: 0.5vw;
 }
 
-img {
-  padding-right: 1rem;
-}
-
 .topnav {
   overflow: hidden;
   margin: 3.5%;
 }
 .header-logo {
     float: left;
+    padding-left: 35px;
 }
 .main-navbar {
     float: right;
@@ -53,13 +50,17 @@ img {
 }
 
 .topnav a:hover {
-  background-color: #ff0000;
+  background-color: #FF001B;
   color: #ffffff;
   border-radius: 15px;
 }
 
-.topnav a.active {
-  background-color: #ff0000;
+.topnav span:hover {
+  border-bottom: 1px solid white;
+}
+
+.topnav a:active {
+  background-color: #FF001B;
   color: #ffffff;
   border-radius: 15px;
 }
@@ -73,6 +74,10 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
+    color: #FF001B;
+  }
+  .topnav a.icon:hover {
+    color: white;
   }
 }
 
