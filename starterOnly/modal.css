@@ -55,8 +55,8 @@ p {
   border-radius: 15px;
 }
 
-.topnav span:hover {
-  border-bottom: 1px solid white;
+.topnav a:hover span {
+  border-bottom: 1.7px solid white;
 }
 
 .topnav a:active {
@@ -202,11 +202,20 @@ main {
 
 label {
   font-family: var(--font-default);
-  font-size: 17px;
+  font-size: 14px;
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
 }
+
+.error-msg {
+  font-size: 10px;
+  color: #FF4E60 ;
+  display: none;
+  position: relative;
+  top: 5px;
+}
+
 input {
   padding: 8px;
   border: 0.8px solid #ccc;
