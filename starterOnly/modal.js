@@ -41,13 +41,16 @@ closeBtn.addEventListener("click", function() {
 
 // validation & error messages
 const validationTexts = document.querySelectorAll(".error-msg");
+const textInput = document.querySelectorAll(".text-control");
 
 function showValidation({index, validation}) {
   if(validation) {
     if(validationTexts[index]) validationTexts[index].style.display = "none";
+    textInput[index].style.border = "none";
   }
   else {
     if(validationTexts[index]) validationTexts[index].style.display = "block";
+    textInput[index].style.border = "2px solid #ff4e60";
   }
 }
 
@@ -56,9 +59,10 @@ const firstNameInput = document.querySelector(".formData:nth-child(1) input");
 
 firstNameInput.addEventListener("blur", firstNameValidation)
 firstNameInput.addEventListener("input", firstNameValidation)
+const regexFirstLastName = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\s-]$/;
 
 function firstNameValidation() {
-  if(firstNameInput.value.length >= 2) {
+  if(firstNameInput.value.length >= 2 && regexFirstLastName.test(firstNameInput.value)) {
     showValidation({index: 0, validation: true})
   }
   else {
@@ -74,7 +78,7 @@ lastNameInput.addEventListener("blur", lastNameValidation)
 lastNameInput.addEventListener("input", lastNameValidation)
 
 function lastNameValidation() {
-  if(lastNameInput.value.length >= 2) {
+  if(lastNameInput.value.length >= 2 && regexFirstLastName.test(lastNameInput.value)) {
     showValidation({index: 1, validation: true})
   }
   else {
@@ -100,3 +104,25 @@ function emailValidation() {
 }
 
 // date validation
+
+let dateInput = new Date(document.querySelector(".formData:nth-child(4) input").value);
+
+let today = new Date();
+let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+console.log(dateInput);
+console.log(date);
+console.log(dateInput.getTime());
+console.log(date.getTime());
+console.log(typeof emailInput);
+
+dateInput.addEventListener("blur", dateValidation)
+dateInput.addEventListener("change", dateValidation)
+
+function dateValidation() {
+  if(dateInput.getTime() < date.getTime()) {
+    showValidation({index: 3, validation: true})
+  }
+  else {
+    showValidation({index: 3, validation: false})
+  }
+}
