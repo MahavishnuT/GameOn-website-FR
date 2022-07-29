@@ -65,3 +65,38 @@ function firstNameValidation() {
     showValidation({index: 0, validation: false})
   }
 }
+
+// last name validation 
+
+const lastNameInput = document.querySelector(".formData:nth-child(2) input");
+
+lastNameInput.addEventListener("blur", lastNameValidation)
+lastNameInput.addEventListener("input", lastNameValidation)
+
+function lastNameValidation() {
+  if(lastNameInput.value.length >= 2) {
+    showValidation({index: 1, validation: true})
+  }
+  else {
+    showValidation({index: 1, validation: false})
+  }
+}
+
+// email validation
+
+const emailInput = document.querySelector(".formData:nth-child(3) input");
+const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+emailInput.addEventListener("blur", emailValidation)
+emailInput.addEventListener("input", emailValidation)
+
+function emailValidation() {
+  if(regexEmail.test(emailInput.value)) {
+    showValidation({index: 2, validation: true})
+  }
+  else {
+    showValidation({index: 2, validation: false})
+  }
+}
+
+// date validation
