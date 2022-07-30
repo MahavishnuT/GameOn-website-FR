@@ -59,7 +59,7 @@ const firstNameInput = document.querySelector(".formData:nth-child(1) input");
 
 firstNameInput.addEventListener("blur", firstNameValidation)
 firstNameInput.addEventListener("input", firstNameValidation)
-const regexFirstLastName = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\s-]$/;
+const regexFirstLastName = /^[a-zA-Z\u00e0-\u00ff]+(([- ])?[a-zA-Z\u00e0-\u00ff])+$/;
 
 function firstNameValidation() {
   if(firstNameInput.value.length >= 2 && regexFirstLastName.test(firstNameInput.value)) {
@@ -105,7 +105,7 @@ function emailValidation() {
 
 // date validation
 
-let dateInput = new Date(document.querySelector(".formData:nth-child(4) input").value);
+const dateInput = new Date(document.querySelector(".formData:nth-child(4) input").value);
 
 let today = new Date();
 let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
@@ -113,7 +113,6 @@ console.log(dateInput);
 console.log(date);
 console.log(dateInput.getTime());
 console.log(date.getTime());
-console.log(typeof emailInput);
 
 dateInput.addEventListener("blur", dateValidation)
 dateInput.addEventListener("change", dateValidation)
@@ -124,5 +123,22 @@ function dateValidation() {
   }
   else {
     showValidation({index: 3, validation: false})
+  }
+}
+
+// tournaments validation
+
+const tournamentInput = document.querySelector(".formData:nth-child(5) input");
+const regexTournament = /^\d?\d$/
+
+tournamentInput.addEventListener("blur", tournamentValidation)
+tournamentInput.addEventListener("input", tournamentValidation)
+
+function tournamentValidation() {
+  if(regexTournament.test(tournamentInput.value)) {
+    showValidation({index: 4, validation: true})
+  }
+  else {
+    showValidation({index: 4, validation: false})
   }
 }
