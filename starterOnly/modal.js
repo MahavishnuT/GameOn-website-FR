@@ -129,16 +129,29 @@ function dateValidation() {
 // tournaments validation
 
 const tournamentInput = document.querySelector(".formData:nth-child(5) input");
-const regexTournament = /^\d?\d$/
+const regexTournament = /\d$/
 
 tournamentInput.addEventListener("blur", tournamentValidation)
 tournamentInput.addEventListener("input", tournamentValidation)
 
 function tournamentValidation() {
-  if(regexTournament.test(tournamentInput.value)) {
+  if(regexTournament.test(tournamentInput.value) && tournamentInput.value >= 0) {
     showValidation({index: 4, validation: true})
   }
   else {
     showValidation({index: 4, validation: false})
+  }
+}
+
+// tournament choice validation
+
+const tournamentChoice = document.querySelectorAll(".formData .radio-input")
+
+function tournamentChoiceValidation () {
+  if(tournamentChoice) {
+    showValidation({index: 5, validation: true})
+  }
+  else {
+    showValidation({index: 5, validation: false})
   }
 }
