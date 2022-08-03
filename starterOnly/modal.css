@@ -200,6 +200,14 @@ main {
   margin: 15px auto;
 }
 
+#thank-you {
+  color: white;
+  font-weight: 400;
+  display: none;
+  width: 70%;
+  text-align: center;
+}
+
 label {
   font-family: var(--font-default);
   font-size: 14px;
