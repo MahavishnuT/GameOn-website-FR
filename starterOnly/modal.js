@@ -15,6 +15,7 @@ const formData = document.querySelectorAll(".formData");
 const submitBtn = document.querySelector(".btn-submit");
 const closeBtn = document.querySelector(".close");
 const thankYou = document.querySelector("#thank-you")
+const content = document.querySelector(".content")
 
 // modal form validity 
 const inputsValidity = {
@@ -23,6 +24,7 @@ const inputsValidity = {
   email: false,
   birthDate: false,
   tournaments: false,
+  tournamentChoice: false,
   termsAndConditions: false
 }
 
@@ -41,8 +43,10 @@ function handleForm(e) {
     })
   }
   else {
-    modalBody.style.display = "none";
-    modalBg.style.heigth = "500px"
+    formData.forEach(form => {
+      form.style.display = "none"
+    });
+    content.style.heigth = "500px";
     thankYou.style.display = "block";
   }
 }
@@ -137,25 +141,22 @@ let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
 
 function dateValidation() {
   let dateSelected = new Date(document.querySelector(".formData:nth-child(4) input").value);
-  console.log("test")
 
   if(dateSelected.getTime() < date.getTime()) {
     showValidation({index: 3, validation: true});
-    console.log("test true");
     dateSelected;
     inputsValidity.birthDate = true;
   }
   else {
     showValidation({index: 3, validation: false});
-    console.log("test false");
     dateSelected;
     inputsValidity.birthDate = false;
   }
 }
 
 const dateInput = document.querySelector(".formData:nth-child(4) input");
-dateInput.addEventListener("blur", () => {dateValidation()}, console.log("test blur"))
-dateInput.addEventListener("change", () => {dateValidation()}, console.log("test input"))
+dateInput.addEventListener("blur", () => {dateValidation()})
+dateInput.addEventListener("change", () => {dateValidation()})
 
 // tournaments validation
 
@@ -178,19 +179,30 @@ function tournamentValidation() {
 
 // tournament choice validation
 
-/* const tournamentChoice = document.querySelectorAll(".formData .radio-input");
+const tournamentChoices = document.querySelectorAll(".formData .radio-input");
 
-tournamentChoice[0].addEventListener("blur", tournamentChoiceValidation)
-tournamentChoice[0].addEventListener("input", tournamentChoiceValidation, console.log("test input"))
+tournamentChoices.forEach(tournamentChoice => {
+  tournamentChoice.addEventListener("blur", tournamentChoiceValidation)
+})
+tournamentChoices.forEach(tournamentChoice => {
+  tournamentChoice.addEventListener("click", tournamentChoiceValidation)
+})
 
 function tournamentChoiceValidation() {
-  if(tournamentChoice.checked) {
-    showValidation({index: 5, validation: true})
+  for (i in tournamentChoices) {
+    if(tournamentChoices[i].checked) {
+      showValidation({index: 5, validation: true})
+      console.log("test true");
+      inputsValidity.tournamentChoice = true;
+      break;
+    }
+    else {
+      showValidation({index: 5, validation: false})
+      console.log("test false");
+      inputsValidity.tournamentChoice = false;
+    }
   }
-  else {
-    showValidation({index: 5, validation: false})
-  }
-} */
+}
 
 // terms and conditions validation
 
@@ -200,12 +212,12 @@ termsAndConditions.addEventListener("blur", termsAndConditionsValidation)
 termsAndConditions.addEventListener("input", termsAndConditionsValidation)
 
 function termsAndConditionsValidation() {
-  if(termsAndConditions.checked === true) {
-    showValidation({index: 5, validation: true})
+  if(termsAndConditions.checked) {
+    showValidation({index: 6, validation: true})
     inputsValidity.termsAndConditions = true;
   }
   else {
-    showValidation({index: 5, validation: false})
+    showValidation({index: 6, validation: false})
     inputsValidity.termsAndConditions = false;
   }
 }

@@ -69,7 +69,7 @@ p {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1072px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
@@ -79,9 +79,6 @@ p {
   .topnav a.icon:hover {
     color: white;
   }
-}
-
-@media screen and (max-width: 768px) {
   .topnav.responsive {
     position: relative;
   }
@@ -98,20 +95,14 @@ p {
   .main-navbar_element {
     position: relative;
     right: 40px;
+  }
+/*   .main-navbar_element span {
+    display: inline-block;
+    width: 100%;
     text-align: right;
-  }
+  } */
 }
-
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-} 
+ 
 
 main {
   font-size: 130%;
@@ -308,6 +299,16 @@ input[data-error]::after {
 .checkbox-input:checked + .checkbox2-label .checkbox-icon {
   background: #279e7a;
 }
+.radio-input {
+  display: none;
+}
+.radio-input:checked + .checkbox-label .checkbox-icon::after,
+.radio-input:checked + .checkbox2-label .checkbox-icon::after {
+  opacity: 1;
+}
+.radio-input:checked + .checkbox2-label .checkbox-icon {
+  background: #279e7a;
+}
 .checkbox2-label .checkbox-icon {
   border-radius: 4px;
   border: 0;
@@ -434,7 +435,7 @@ input[data-error]::after {
   font-size: 16px;
 }
 .hero-section {
-  min-height: 93vh;
+  /* min-height: 93vh; */
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -488,7 +489,7 @@ input[data-error]::after {
 }
 .hero-img img {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: block;
   padding: 0;
 }
@@ -507,7 +508,7 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1072px) {
   .hero-section {
     display: block;
     box-shadow: unset;
