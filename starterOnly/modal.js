@@ -132,20 +132,13 @@ function emailValidation() {
 
 // date validation
 
-const dateInput = document.querySelector(".formData:nth-child(4) input");
-let dateSelected = new Date(document.querySelector(".formData:nth-child(4) input").value);
-
 let today = new Date();
 let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
 
-dateInput.addEventListener("blur", (e) => {dateValidation()}, console.log("test blur"))
-dateInput.addEventListener("change", (e) => {dateValidation()}, console.log("test input"))
-
-console.log(date.getTime())
-console.log(dateSelected.getTime())
-
 function dateValidation() {
+  let dateSelected = new Date(document.querySelector(".formData:nth-child(4) input").value);
   console.log("test")
+
   if(dateSelected.getTime() < date.getTime()) {
     showValidation({index: 3, validation: true});
     console.log("test true");
@@ -159,6 +152,10 @@ function dateValidation() {
     inputsValidity.birthDate = false;
   }
 }
+
+const dateInput = document.querySelector(".formData:nth-child(4) input");
+dateInput.addEventListener("blur", () => {dateValidation()}, console.log("test blur"))
+dateInput.addEventListener("change", () => {dateValidation()}, console.log("test input"))
 
 // tournaments validation
 
