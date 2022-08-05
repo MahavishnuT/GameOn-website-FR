@@ -46,8 +46,11 @@ function handleForm(e) {
     formData.forEach(form => {
       form.style.display = "none"
     });
-    content.style.heigth = "500px";
     thankYou.style.display = "block";
+    submitBtn.value = "Fermer";
+    submitBtn.addEventListener("click", function() {
+      modalBg.style.display = "none";
+    })
   }
 }
 

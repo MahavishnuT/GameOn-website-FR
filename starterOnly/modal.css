@@ -28,14 +28,18 @@ p {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
+  display: flex;
+  margin-top: 25px;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .header-logo {
-    float: left;
-    padding-left: 35px;
+    position: relative;
+    left: 30px;
 }
 .main-navbar {
-    float: right;
+    position: relative;
+  right: 10px;
 }
 .topnav a {
   float: left;
@@ -72,7 +76,7 @@ p {
 @media screen and (max-width: 1072px) {
   .topnav a {display: none;}
   .topnav a.icon {
-    float: right;
+    position: relative;
     display: block;
     color: #FF001B;
   }
@@ -80,6 +84,7 @@ p {
     color: white;
   }
   .topnav.responsive {
+    display: flex;
     position: relative;
   }
   .topnav.responsive .icon {
@@ -92,10 +97,15 @@ p {
     display: block;
     text-align: left;
   }
+  .main-navbar {
+    position: relative;
+    right: 20px;
+  }
   .main-navbar_element {
     position: relative;
     right: 40px;
   }
+
 /*   .main-navbar_element span {
     display: inline-block;
     width: 100%;
@@ -194,9 +204,11 @@ main {
 #thank-you {
   color: white;
   font-weight: 400;
+  font-size: 36px;
   display: none;
-  width: 70%;
+  width: 65%;
   text-align: center;
+  margin: 290px auto;
 }
 
 label {
@@ -544,6 +556,18 @@ footer {
   .copyrights {
     margin-top: 50px;
     text-align: center;
+  }
+  .content {
+    width: 100%;
+    max-width: none;
+    height: 90%;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    border-radius: 8px 8px 0 0;
+  }
+  .bground {
+    display: none;
   }
 }
 
