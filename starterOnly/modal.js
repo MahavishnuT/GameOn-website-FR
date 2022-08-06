@@ -48,15 +48,16 @@ function handleForm(e) {
     });
     thankYou.style.display = "block";
     submitBtn.value = "Fermer";
-    submitBtn.addEventListener("click", function() {
-      modalBg.style.display = "none";
-    })
+    closeModal;
   }
 }
 
 // launch modal form
 function launchModal() {
   modalBg.style.display = "block";
+}
+function closeModal() {
+  modalBg.style.display = "none";
 }
 
 // launch modal event
@@ -97,6 +98,87 @@ function firstNameValidation() {
   else {
     showValidation({index: 0, validation: false})
     inputsValidity.firstName = false;
+  }
+}
+
+function globalValidation() {
+
+  if(input.type === "text") {
+    if(input.value.length >= 2 && regexFirstLastName.test(input.value)) {
+      showValidation({index: 0 && 1, validation: true})
+      inputsValidity.firstName = true;
+      inputsValidity.lastName = true;
+    }
+    else {
+      showValidation({index: 0 && 1, validation: false})
+      inputsValidity.firstName = false;
+      inputsValidity.lastName = false;
+    }
+  }
+
+  else if(input.type === "email") {
+    if(regexEmail.test(input.value)) {
+      showValidation({index: 2, validation: true})
+      inputsValidity.email = true;
+    }
+    else {
+      showValidation({index: 2, validation: false})
+      inputsValidity.email = false;
+    }
+  }
+
+  else if(input.type === "date") {
+    let dateSelected = new Date(document.querySelector(".formData:nth-child(4) input").value);
+
+    if(dateSelected.getTime() < date.getTime()) {
+      showValidation({index: 3, validation: true});
+      dateSelected;
+      inputsValidity.birthDate = true;
+    }
+    else {
+      showValidation({index: 3, validation: false});
+      dateSelected;
+      inputsValidity.birthDate = false;
+    }
+  }
+
+  else if(input.type === "number") {
+    if(regexTournament.test(input.value) && input.value >= 0 && input.value < 100) {
+      showValidation({index: 4, validation: true})
+      inputsValidity.tournaments = true;
+    }
+    else {
+      showValidation({index: 4, validation: false})
+      inputsValidity.tournaments = false;
+    }
+  }
+
+  else if(input.type === "radio") {
+    for (i in tournamentChoices) {
+      if(tournamentChoices[i].checked) {
+        showValidation({index: 5, validation: true})
+        inputsValidity.tournamentChoice = true;
+        break;
+      }
+      else {
+        showValidation({index: 5, validation: false})
+        inputsValidity.tournamentChoice = false;
+      }
+    }
+  }
+
+  else if(input.type === "checkbox" && input.hasAttribute("required")) {
+    if(input.checked) {
+      showValidation({index: 6, validation: true})
+      inputsValidity.termsAndConditions = true;
+    }
+    else {
+      showValidation({index: 6, validation: false})
+      inputsValidity.termsAndConditions = false;
+    }
+  }
+  
+  else {
   }
 }
 
