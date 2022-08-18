@@ -93,6 +93,10 @@ function showValidation(index, validation, indexbis) {
 firstNameInput.addEventListener("blur", firstNameValidation)
 firstNameInput.addEventListener("input", firstNameValidation) */
 const regexFirstLastName = /^[a-zA-Z\u00e0-\u00ff]+(([- ])?[a-zA-Z\u00e0-\u00ff])+$/;
+const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const regexTournament = /\d$/;
+let today = new Date();
+let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
 
 /* function firstNameValidation() {
   if(firstNameInput.value.length >= 2 && regexFirstLastName.test(firstNameInput.value)) {
@@ -107,19 +111,21 @@ const regexFirstLastName = /^[a-zA-Z\u00e0-\u00ff]+(([- ])?[a-zA-Z\u00e0-\u00ff]
 
 const inputGlobal = document.querySelectorAll(".formData input");
 inputGlobal.forEach(input => {
-  input.addEventListener("click", globalValidation)
+  input.addEventListener("click", globalValidation(input))
+  console.log("input");
 })
+
+
 inputGlobal.forEach(input => {
-  input.addEventListener("blur", globalValidation)
+  input.addEventListener("blur", globalValidation(input))
 })
 
 
-function globalValidation() {
+function globalValidation(input) {
   console.log("globalValidation")
+  for(i in inputGlobal) {
 
-  inputGlobal.forEach(input => {
-
-    if(input.getAttribute("type") === "text") {
+    if(inputGlobal[i].getAttribute("type") === "text") {
       console.log("input text")
       if(input.value.length >= 2 && regexFirstLastName.test(input.value)) {
         showValidation( 0, true, 1)
@@ -198,9 +204,8 @@ function globalValidation() {
         inputsValidity.termsAndConditions = false;
       }
     }
-  })
 
-
+  }
   
 }
 
@@ -225,7 +230,7 @@ function lastNameValidation() {
 // email validation
 
 /* const emailInput = document.querySelector(".formData:nth-child(3) input"); */
-const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
 
 /* emailInput.addEventListener("blur", emailValidation)
 emailInput.addEventListener("input", emailValidation)
@@ -243,8 +248,7 @@ function emailValidation() {
 
 // date validation
 
-let today = new Date();
-let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+
 
 /* function dateValidation() {
   let dateSelected = new Date(document.querySelector(".formData:nth-child(4) input").value);
@@ -266,7 +270,7 @@ dateInput.addEventListener("change", () => {dateValidation()}) */
 // tournaments validation
 
 /* const tournamentInput = document.querySelector(".formData:nth-child(5) input");
- */const regexTournament = /\d$/
+ */
 
 /* tournamentInput.addEventListener("blur", tournamentValidation)
 tournamentInput.addEventListener("input", tournamentValidation)
@@ -275,6 +279,7 @@ function tournamentValidation() {
   if(regexTournament.test(tournamentInput.value) && tournamentInput.value >= 0 && tournamentInput.value < 100) {
     showValidation( 4, true)
     inputsValidity.tournaments = true;
+
   }
   else {
     showValidation( 4, false)
