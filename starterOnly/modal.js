@@ -17,9 +17,10 @@ const closeBtn = document.querySelector(".close");
 const thankYou = document.querySelector("#thank-you");
 const content = document.querySelector(".content");
 const body = document.querySelector("body");
+const everyFormInputs = document.querySelectorAll(".formData input");
 
 // modal form validity 
-const inputsValidity = {
+/* const inputsValidity = {
   firstName: false,
   lastName: false,
   email: false,
@@ -27,14 +28,33 @@ const inputsValidity = {
   tournaments: false,
   tournamentChoice: false,
   termsAndConditions: false
-}
+} */
 
 modalBody.addEventListener("submit", handleForm)
 
 function handleForm(e) {
   e.preventDefault()
+  
+  everyFormInputs.forEach(input => {
+    const errorElement = input.parentNode.querySelector(".error-msg")
+    inputValidation(input);
 
-  const keys = Object.keys(inputsValidity)
+    if(errorElement.style.display = "block") {
+      submitBtn.disabled = true;
+    }
+    else {
+      formData.forEach(form => {
+        form.style.display = "none"
+      });
+      thankYou.style.display = "block";
+      submitBtn.value = "Fermer";
+      submitBtn.addEventListener("click", function() {
+        modalBg.style.display = "none";
+      })
+    }
+  })
+
+/*   const keys = Object.keys(inputsValidity)
   const failedInputs = keys.filter(key => !inputsValidity[key])
 
   if(failedInputs.length) {
@@ -52,7 +72,7 @@ function handleForm(e) {
     submitBtn.addEventListener("click", function() {
       modalBg.style.display = "none";
     })
-  }
+  } */
 }
 
 // launch modal form
@@ -73,17 +93,24 @@ closeBtn.addEventListener("click", function() {
 })
 
 // validation & error messages
-const validationTexts = document.querySelectorAll(".error-msg");
-const textInput = document.querySelectorAll(".text-control");
+// const validationTexts = document.querySelectorAll(".error-msg");
+// const textInput = document.querySelectorAll(".text-control");
 
-function showValidation(index, validation, indexbis) {
-  if(validation) {
-    if(validationTexts[index, indexbis]) validationTexts[index, indexbis].style.display = "none";
-    if(textInput[index, indexbis]) textInput[index, indexbis].style.border = "none";
+/**
+ * displays an error-message if `input` element is invalid
+ * @param {*} input 
+ * @param {*} isValid 
+ */
+function showValidation(input, isValid) {
+  const errorElement = input.parentNode.querySelector(".error-msg")
+  console.log(errorElement);
+  if(isValid) {
+    errorElement.style.display = "none";
+    input.style.border = "none";
   }
   else {
-    if(validationTexts[index, indexbis]) validationTexts[index, indexbis].style.display = "block";
-    if(textInput[index, indexbis]) textInput[index, indexbis].style.border = "2px solid #ff4e60";
+    errorElement.style.display = "block";
+    input.style.border = "2px solid #ff4e60";
   }
 }
 
@@ -109,45 +136,34 @@ let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
   }
 } */
 
-const inputGlobal = document.querySelectorAll(".formData input");
-inputGlobal.forEach(input => {
-  input.addEventListener("click", globalValidation(input))
-  console.log("input");
+everyFormInputs.forEach(input => {
+  input.addEventListener("input", function() {
+    console.log("input");
+    inputValidation(input)})
 })
 
 
-inputGlobal.forEach(input => {
-  input.addEventListener("blur", globalValidation(input))
-})
+function inputValidation(input) {
+  console.log("inputValidation");
+  console.log(input);
 
-
-function globalValidation(input) {
-  console.log("globalValidation")
-  for(i in inputGlobal) {
-
-    if(inputGlobal[i].getAttribute("type") === "text") {
+    if(input.getAttribute("type") === "text") {
       console.log("input text")
       if(input.value.length >= 2 && regexFirstLastName.test(input.value)) {
-        showValidation( 0, true, 1)
-        inputsValidity.firstName = true;
-        inputsValidity.lastName = true;
+        showValidation(input, true)
       }
       else {
-        showValidation( 0, false, 1)
-        inputsValidity.firstName = false;
-        inputsValidity.lastName = false;
+        showValidation(input, false)
       }
     }
   
     else if(input.getAttribute("type") === "email") {
       console.log("input email")
       if(regexEmail.test(input.value)) {
-        showValidation( 2, true)
-        inputsValidity.email = true;
+        showValidation(input, true)
       }
       else {
-        showValidation( 2, false)
-        inputsValidity.email = false;
+        showValidation(input, false)
       }
     }
     
@@ -156,24 +172,20 @@ function globalValidation(input) {
       let dateSelected = new Date(document.querySelector(".formData:nth-child(4) input").value);
       
       if(dateSelected.getTime() < date.getTime()) {
-        showValidation( 3, true);
-        inputsValidity.birthDate = true;
+        showValidation( input, true);
       }
       else {
-        showValidation( 3, false);
-        inputsValidity.birthDate = false;
+        showValidation( input, false);
       }
     }
     
     else if(input.getAttribute("type") === "number") {
       console.log("input number")
       if(regexTournament.test(input.value) && input.value >= 0 && input.value < 100) {
-        showValidation( 4, true)
-        inputsValidity.tournaments = true;
+        showValidation( input, true)
       }
       else {
-        showValidation( 4, false)
-        inputsValidity.tournaments = false;
+        showValidation( input, false)
       }
     }
     
@@ -182,13 +194,11 @@ function globalValidation(input) {
       const inputRadio = document.querySelectorAll(".formData .radio-input");
       for (i in inputRadio) {
         if(inputRadio[i].checked) {
-          showValidation( 5, true)
-          inputsValidity.tournamentChoice = true;
+          showValidation( input, true)
           break;
         }
         else {
-          showValidation( 5, false)
-          inputsValidity.tournamentChoice = false;
+          showValidation( input, false)
         }
       }
     }
@@ -196,16 +206,13 @@ function globalValidation(input) {
     else if(input.getAttribute("type") === "checkbox" && input.hasAttribute("required")) {
       console.log("input checkbox")
       if(input.checked) {
-        showValidation( 6, true)
-        inputsValidity.termsAndConditions = true;
+        showValidation( input, true)
       }
       else {
-        showValidation( 6, false)
-        inputsValidity.termsAndConditions = false;
+        showValidation( input, false)
+
       }
     }
-
-  }
   
 }
 

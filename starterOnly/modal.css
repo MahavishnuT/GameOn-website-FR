@@ -561,7 +561,7 @@ footer {
   .content {
     width: 100%;
     max-width: none;
-    height: 90%;
+    height: 85vh;
     margin: 0;
     position: absolute;
     bottom: 0;
