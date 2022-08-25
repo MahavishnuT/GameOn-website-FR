@@ -30,29 +30,7 @@ const everyFormInputs = document.querySelectorAll(".formData input");
   termsAndConditions: false
 } */
 
-modalBody.addEventListener("submit", handleForm)
 
-function handleForm(e) {
-  e.preventDefault()
-  
-  everyFormInputs.forEach(input => {
-    const errorElement = input.parentNode.querySelector(".error-msg")
-    inputValidation(input);
-
-    if(errorElement.style.display = "block") {
-      submitBtn.disabled = true;
-    }
-    else {
-      formData.forEach(form => {
-        form.style.display = "none"
-      });
-      thankYou.style.display = "block";
-      submitBtn.value = "Fermer";
-      submitBtn.addEventListener("click", function() {
-        modalBg.style.display = "none";
-      })
-    }
-  })
 
 /*   const keys = Object.keys(inputsValidity)
   const failedInputs = keys.filter(key => !inputsValidity[key])
@@ -73,7 +51,6 @@ function handleForm(e) {
       modalBg.style.display = "none";
     })
   } */
-}
 
 // launch modal form
 function launchModal() {
@@ -215,6 +192,37 @@ function inputValidation(input) {
     }
   
 }
+
+function isTrue(input) {
+  const errorElement = input.parentNode.querySelector(".error-msg")
+  if(errorElement.style.display = "block") {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+modalBody.addEventListener("submit", handleForm)
+
+function handleForm(e) {
+  e.preventDefault()
+
+  if(everyFormInputs.some(isTrue)) {
+    submitBtn.disabled = true;
+  }
+  else {
+    formData.forEach(form => {
+      form.style.display = "none"
+    });
+    thankYou.style.display = "block";
+    submitBtn.value = "Fermer";
+    submitBtn.addEventListener("click", function() {
+      modalBg.style.display = "none";
+    })
+  }
+}
+
 
 // last name validation 
 
