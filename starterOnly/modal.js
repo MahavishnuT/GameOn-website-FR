@@ -82,12 +82,12 @@ function showValidation(input, isValid) {
   const errorElement = input.parentNode.querySelector(".error-msg")
   console.log(errorElement);
   if(isValid) {
-    errorElement.style.display = "none";
-    input.style.border = "none";
+    if(errorElement) errorElement.style.display = "none";
+    if(input) input.style.border = "none";
   }
   else {
-    errorElement.style.display = "block";
-    input.style.border = "2px solid #ff4e60";
+    if(errorElement) errorElement.style.display = "block";
+    if(input) input.style.border = "2px solid #ff4e60";
   }
 }
 
@@ -183,35 +183,41 @@ function inputValidation(input) {
     else if(input.getAttribute("type") === "checkbox" && input.hasAttribute("required")) {
       console.log("input checkbox")
       if(input.checked) {
+        console.log("input checkbox true")
         showValidation( input, true)
       }
       else {
+        console.log("input checkbox false")
         showValidation( input, false)
-
       }
     }
   
 }
 
-function isTrue(input) {
-  const errorElement = input.parentNode.querySelector(".error-msg")
-  if(errorElement.style.display = "block") {
-    return false;
-  }
-  else {
-    return true;
-  }
+function checkErrorInput(inputs) {
+  let isError = false;
+  inputs.forEach(input => {
+    const errorElement = input.parentNode.querySelector(".error-msg")
+    if(errorElement.style.display = "block") {
+      isError = true;
+    }
+  })
+  return isError
 }
 
-modalBody.addEventListener("submit", handleForm)
+modalBody.addEventListener("submit", handleForm);
 
 function handleForm(e) {
   e.preventDefault()
+  const checkErrors = checkErrorInput(everyFormInputs);
+  // checkErrors;
 
-  if(everyFormInputs.some(isTrue)) {
+  if(checkErrors) {
     submitBtn.disabled = true;
+    console.log("button disabled")
   }
   else {
+    console.log("button working")
     formData.forEach(form => {
       form.style.display = "none"
     });
