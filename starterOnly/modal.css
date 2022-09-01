@@ -31,15 +31,16 @@ p {
   display: flex;
   margin-top: 25px;
   flex-direction: row;
-  justify-content: space-between;
+  position: relative;
+  margin-bottom: 30px;
 }
 .header-logo {
     position: relative;
     left: 30px;
 }
 .main-navbar {
-    position: relative;
-  right: 10px;
+    position: absolute;
+    right: 10px;
 }
 .topnav a {
   float: left;
@@ -49,7 +50,7 @@ p {
   padding: 12px 12px;
   margin: 5px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
   font-family: Roboto, sans-serif;
 }
 
@@ -74,18 +75,28 @@ p {
 }
 
 
-@media screen and (max-width: 954px) {
+@media screen and (max-width: 900px) {
+  .main-navbar {
+    position: relative;
+    width: 100%;
+  }
+  .topnav {
+    min-height: 60px;
+    width: 100%;
+  }
   .topnav a {display: none;}
   .topnav a.icon {
-    position: relative;
+    position: absolute;
     display: block;
     color: #FF001B;
+    right: 0px;
   }
   .topnav a.icon:hover {
     color: white;
   }
   .topnav.responsive {
     display: flex;
+    flex-direction: row;
     position: relative;
   }
   .topnav.responsive .icon {
@@ -104,12 +115,16 @@ p {
   }
   .main-navbar_element {
     position: relative;
-    right: 40px;
+    right: -40px;
+    padding: 0;
+    margin: 0;
+    width: fit-content;
   }
   .header-logo {
     scale: 0.5;
-    position: relative;
-    left: -30px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 
 }
@@ -175,9 +190,9 @@ main {
   display: none;
   position: fixed;
   z-index: 1;
+  height: 100vh;
   left: 0;
   bottom: 0;
-  height: 90vh;
   width: 100%;
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
@@ -526,6 +541,9 @@ footer {
 
 
 @media screen and (max-width: 768px) {
+  .bground {
+    height: 90vh;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;
