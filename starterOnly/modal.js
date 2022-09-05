@@ -19,6 +19,7 @@ const content = document.querySelector(".content");
 const body = document.querySelector("body");
 const everyFormInputs = document.querySelectorAll(".formData input");
 const formElement = document.querySelector(".modal-body form");
+const errorMessages = document.querySelectorAll(".error-msg");
 
 // regex and date 
 const regexFirstLastName = /^[a-zA-Z\u00e0-\u00ff]+(([- ])?[a-zA-Z\u00e0-\u00ff])+$/;
@@ -29,15 +30,25 @@ let date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
 let minimumDate = new Date("January 1, 1900");
 
 // launch modal form
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
 function launchModal() {
   modalBg.style.display = "block";
   body.style.overflow = "hidden";
   window.scrollTo({ top: 0, behavior: 'smooth' })
+
+  errorMessages.forEach(errorMessage => {
+    if (errorMessage.style.display = "block") {
+      errorMessage.style.display = "none"
+    }
+  })
+  everyFormInputs.forEach(input => {
+    if (input.style.border = "2px solid #e54858") {
+      input.style.border = "0.8px solid #ccc";
+    }
+  })
+
 }
-
-
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close button 
 closeBtn.addEventListener("click", function() {
@@ -197,11 +208,9 @@ function handleForm(e) {
   const isCheckFormErrors = checkForm();
 
   if(isCheckFormErrors) {
-    submitBtn.style.backgroundColor = "grey";
     console.log("button disabled")
   }
   else {
-    console.log("button working");
     formElement.reset();
     submitBtn.style.backgroundColor = "#FE142F";
     formData.forEach(form => {
@@ -211,6 +220,12 @@ function handleForm(e) {
     submitBtn.value = "Fermer";
     submitBtn.addEventListener("click", function() {
       modalBg.style.display = "none";
+      thankYou.style.display = "none";
+      submitBtn.value = "C'est parti!";
+      formData.forEach(form => {
+        form.style.display = "block"
+      });
     })
   }
 }
+
