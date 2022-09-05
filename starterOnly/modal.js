@@ -52,8 +52,21 @@ function launchModal() {
 
 // close button 
 closeBtn.addEventListener("click", function() {
-  modalBg.style.display = "none";
-  body.style.overflow = "auto";
+  if(thankYou.style.display = "block") {
+    formElement.reset();
+    modalBg.style.display = "none";
+    body.style.overflow = "auto";
+    modalBg.style.display = "none";
+    thankYou.style.display = "none";
+    submitBtn.value = "C'est parti!";
+    formData.forEach(form => {
+        form.style.display = "block"
+      });
+  }
+  else {
+    modalBg.style.display = "none";
+    body.style.overflow = "auto";
+  }
 })
 
 // shows if errors were made by users
