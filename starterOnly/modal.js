@@ -78,7 +78,6 @@ function showValidation(input, isValid) {
 
   // errorElement gets the error message who has an input as sibling
   const errorElement = input.parentNode.querySelector(".error-msg")
-  console.log(errorElement);
 
   if(isValid) {
     errorElement.style.display = "none";
@@ -109,7 +108,6 @@ function inputValidation(input) {
   let isErrorInInput = false;
 
   if(input.getAttribute("name") === "email") {
-    console.log("input email")
     if(regexEmail.test(input.value)) {
       showValidation(input, true)
     }
@@ -120,7 +118,6 @@ function inputValidation(input) {
   }
 
    else if(input.getAttribute("type") === "text") {
-      console.log("input text")
       if(input.value.length >= 2 && regexFirstLastName.test(input.value)) {
         showValidation(input, true)
       }
@@ -132,7 +129,6 @@ function inputValidation(input) {
   
     
     else if(input.getAttribute("type") === "date") {
-      console.log("input date")
       let dateSelected = new Date(document.querySelector(".formData #birthdate").value);
       
       if(dateSelected.getTime() < date.getTime() && dateSelected.getTime() > minimumDate.getTime()) {
@@ -145,7 +141,6 @@ function inputValidation(input) {
     }
     
     else if(input.getAttribute("type") === "number") {
-      console.log("input number")
       if(regexTournament.test(input.value) && input.value >= 0 && input.value < 100) {
         showValidation( input, true)
       }
@@ -156,7 +151,6 @@ function inputValidation(input) {
     }
     
     else if(input.getAttribute("type") === "radio") {
-      console.log("input radio")
       const inputsRadio = document.querySelectorAll(".formData .radio-input");
 
       // creation of a boolean to check if at least one of the
@@ -177,13 +171,10 @@ function inputValidation(input) {
     }
     
     else if(input.getAttribute("type") === "checkbox" && input.hasAttribute("data-required")) {
-      console.log("input checkbox")
       if(input.checked) {
-        console.log("input checkbox true")
         showValidation( input, true)
       }
       else {
-        console.log("input checkbox false")
         showValidation( input, false)
         isErrorInInput = true;
       }
@@ -199,7 +190,6 @@ function checkForm() {
   let isErrorInForm = false;
 
   everyFormInputs.forEach(input => {
-    console.log(input);
     if(inputValidation(input)) {
       isErrorInForm = true;
       console.error("error on " , input)
